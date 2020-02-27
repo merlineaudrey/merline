@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 
 app.use(bodyParser.json());
@@ -18,7 +18,7 @@ app.get('/', (req, res) => res.render('index'));
 app.get('/inscription', (req, res) => res.render('inscription'));
 
 
-mongoose.connect(process.env.MONGODB_URL,'mongodb://localhost:27017/test',{useNewUrlParser:true});
+mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/test',{useNewUrlParser:true});
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
